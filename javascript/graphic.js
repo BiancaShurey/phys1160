@@ -144,8 +144,9 @@ CanvasState.prototype.getMouse = function(e) {
   // Add padding and border style widths to offset
   offsetX += this.stylePaddingLeft + this.styleBorderLeft;
   offsetY += this.stylePaddingTop + this.styleBorderTop;
-  mx = e.clientX - offsetX;
+  mx = e.clientX - offsetX+15;
   my = e.clientY - offsetY;
+  //ct.fillRect(mx-2.5,my-2.5,5,5,"red");
   // We return a simple javascript object (a hash) with x and y defined
   return {x: mx, y: my};
 }
