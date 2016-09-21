@@ -83,7 +83,7 @@ function CanvasState(canvas) {
   // var nocireceptors = new Technique(0,25,100,999999,"rgba(83,78,29,0.5)","rgb(58,56,36)","rgba(134,130,83,0.5)","other", "Nocireceptors");
   // var muscletissue = new Technique(1,2,300000,500000,"rgba(134,56,82,0.5)","rgb(83,35,51)","rgba(154,111,125,0.5)","other","Muscle Tissue");
   var sensenerve = new Technique(100,100,10,200,"rgba(64,83,105,0.5)","rgb(33,43,54)","rgba(56,114,181,0.5)","sensenerve", "Sense Nerve");
-  var galvanic = new Technique(0,4250,999990,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic");
+  var galvanic = new Technique(0,4250,500000,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic");
 
 
   this.valid = false; // when set to false, the canvas will redraw everything
@@ -112,8 +112,8 @@ function CanvasState(canvas) {
         document.getElementById("Technique").innerHTML=mySel.tech;
         myState.selection = mySel;
         myState.valid = false;
-        document.getElementById("rangedur").innerHTML="Duration: "+mySel.durmin+"<="+scaleXPC(mx)+"<="+mySel.durmax;
-        document.getElementById("rangefreq").innerHTML="Frequency: "+mySel.freqmin+"<="+scaleYPC(my)+"<="+mySel.freqmax;
+        document.getElementById("rangedur").innerHTML="Duration (&#181s): "+mySel.durmin+"<="+Math.round(scaleXPC(mx))+"<="+mySel.durmax;
+        document.getElementById("rangefreq").innerHTML="Frequency (Hz): "+mySel.freqmin+"<="+Math.round(scaleYPC(my))+"<="+mySel.freqmax;
         return;
       }
     }
@@ -194,48 +194,51 @@ CanvasState.prototype.draw = function() {
 
 function drawXAxes(ctx){
     ctx.beginPath();
-    ctx.moveTo(15,255);
-    ctx.lineTo(515,255);
+    ctx.moveTo(25,255);
+    ctx.lineTo(625,255);
     ctx.font="10px Arial";
     ctx.fillStyle='black';
-    for (var i=scaleXPC(15); i<scaleXPC(515); i=i*2){
+    for (var i=scaleXPC(25); i<scaleXPC(625); i=i*2){
       ctx.moveTo(scaleXCP(i),255);
       ctx.lineTo(scaleXCP(i),265);
+      if (i<1000){
       ctx.fillText(i,scaleXCP(i)-5,270);
+    }else{
+      ctx.fillText(Math.round(i/1000)+"k",scaleXCP(i)-5,270);
     }
-    ctx.moveTo(515,255);
-    ctx.lineTo(510,250);
-    ctx.moveTo(515,255);
-    ctx.lineTo(510,260);
+    }
+    ctx.moveTo(625,255);
+    ctx.lineTo(620,250);
+    ctx.moveTo(625,255);
+    ctx.lineTo(620,260);
     ctx.closePath();
     ctx.stroke();
 }
 
 function drawYAxes(ctx){
     ctx.beginPath();
-    ctx.moveTo(15,255);
-    ctx.lineTo(15,15);
+    ctx.moveTo(25,255);
+    ctx.lineTo(25,15);
     for (var i=0.5; i<scaleYPC(15); i=i*2){
-        console.log(i);
-        ctx.moveTo(15,scaleYCP(i));
+        ctx.moveTo(25,scaleYCP(i));
         ctx.lineTo(5,scaleYCP(i));
-        ctx.fillText(i,0,scaleYCP(i));
+        ctx.fillText(i,0,scaleYCP(i)-1);
     }
-    ctx.moveTo(15,15);
-    ctx.lineTo(10,20);
-    ctx.moveTo(15,15);
+    ctx.moveTo(25,15);
     ctx.lineTo(20,20);
+    ctx.moveTo(25,15);
+    ctx.lineTo(30,20);
     ctx.closePath();
     ctx.stroke();
 }
 
 function scaleXCP(xpos){
-  xpos=Math.log2(xpos)*25+15;
+  xpos=Math.log2(xpos)*31+25;
   return(xpos);
 }
 
 function scaleXPC(xpos){
-  xpos=Math.pow(2,(xpos-15)/25);
+  xpos=Math.pow(2,(xpos-25)/31);
   return(xpos);
 }
 

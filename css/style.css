@@ -4,14 +4,9 @@ body{
 }
 
 p{
-  margin:10px
+  margin:10px;
 }
 
-
-div p {
-    color: #B1DAE0;
-    margin: 10px;
-}
 
 nav ul{
     list-style: none;
@@ -40,10 +35,6 @@ nav a{
     color: #3D8A96;
     display: block;
     text-decoration: none;
-}
-
-nav p{
-    color:#279692;
 }
 
 html, body {
