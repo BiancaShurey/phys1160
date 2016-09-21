@@ -168,8 +168,6 @@ CanvasState.prototype.draw = function() {
     var l = techniques.length;
     // draw all techniques
     if (this.selection==null){
-      el=document.getElementById("initial");
-      el.style.display="block";
       for (var i = l-1; i >= 0; i--) {
         techniques[i].draw(ctx);
         var l = techniques.length;
@@ -177,8 +175,6 @@ CanvasState.prototype.draw = function() {
         el.style.display="none";
         }
     } else {
-      el=document.getElementById("initial");
-      el.style.display="none";
       for (var i = l-1; i >= 0; i--) {
         el=document.getElementById(techniques[i].name);
         if (techniques[i]==this.selection){
