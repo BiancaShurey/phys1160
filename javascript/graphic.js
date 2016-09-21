@@ -83,8 +83,7 @@ function CanvasState(canvas) {
   // var nocireceptors = new Technique(0,25,100,999999,"rgba(83,78,29,0.5)","rgb(58,56,36)","rgba(134,130,83,0.5)","other", "Nocireceptors");
   // var muscletissue = new Technique(1,2,300000,500000,"rgba(134,56,82,0.5)","rgb(83,35,51)","rgba(154,111,125,0.5)","other","Muscle Tissue");
   var sensenerve = new Technique(100,100,10,200,"rgba(64,83,105,0.5)","rgb(33,43,54)","rgba(56,114,181,0.5)","sensenerve", "Sense Nerve");
-  var galvanic = new Technique(0,4250,500000,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic");
-
+  var galvanic = new Technique(scaleYPC(255),4250,500000,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic");
 
   this.valid = false; // when set to false, the canvas will redraw everything
   this.techniques = [hrtens,bitens,russian,FESinnervated,sensenerve,
