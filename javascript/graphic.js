@@ -178,7 +178,6 @@ CanvasState.prototype.draw = function() {
     } else {
       el=document.getElementById("initial");
       el.style.display="none";
-      console.log("selected");
       for (var i = l-1; i >= 0; i--) {
         el=document.getElementById(techniques[i].name);
         if (techniques[i]==this.selection){
@@ -216,7 +215,8 @@ function drawYAxes(ctx){
     ctx.beginPath();
     ctx.moveTo(15,255);
     ctx.lineTo(15,15);
-    for (var i=scaleYPC(255); i<scaleYPC(15); i=i*2){
+    for (var i=0.5; i<scaleYPC(15); i=i*2){
+        console.log(i);
         ctx.moveTo(15,scaleYCP(i));
         ctx.lineTo(5,scaleYCP(i));
         ctx.fillText(i,0,scaleYCP(i));
