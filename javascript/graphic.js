@@ -7,9 +7,10 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
   this.durmin = durmin || 0;
   this.durmax = durmax || durmin;
   if ((durmax-durmin)<=5){
+  if ((durmax-durmin)<=5){
     var grd=ctx.createLinearGradient(0,0,170,0);
     grd.addColorStop(0, "white");
-    grd.addColorStop(0.5, fill);
+    grd.addColorStop(0.5, "red");
     grd.addColorStop(1, "white");
     this.fill=grd || "#AAAAAA";
     var gradientS=ctx.createLinearGradient(0,0,170,0);
