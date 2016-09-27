@@ -6,9 +6,43 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
   this.freqmax = freqmax || freqmin;
   this.durmin = durmin || 0;
   this.durmax = durmax || durmin;
-  this.fill = fill || '#AAAAAA';
-  this.fillSelected= fills || "#BBBBBB";
-  this.fillNotSelected= filln || "#CCCCCC";
+  if ((durmax-durmin)<=5){
+    var gradient=ctx.createLinearGradient(0,0,170,0);
+    gradient.addColorStop(0,"white");
+    gradient.addColorStop(0.5,fill);
+    gradient.addColorStop(1,"white");
+    this.fill=gradient || "#AAAAAA";
+    var gradientS=ctx.createLinearGradient(0,0,170,0);
+    gradientS.addColorStop(0,"white");
+    gradientS.addColorStop(0.5,fills);
+    gradientS.addColorStop(1,"white");
+    this.fillSelected=gradientS || "#AAAAAA";
+    var gradientN=ctx.createLinearGradient(0,0,170,0);
+    gradientN.addColorStop(0,"white");
+    gradientN.addColorStop(0.5,filln);
+    gradientN.addColorStop(1,"white");
+    this.fillNotSelected=gradientN || "#AAAAAA";
+  } else if ((freqmax-freqmin)<=5){
+    var gradient=ctx.createLinearGradient(0,0,0,170);
+    gradient.addColorStop(0,"white");
+    gradient.addColorStop(0.5,fill);
+    gradient.addColorStop(1,"white");
+    this.fill=gradient || "#AAAAAA";
+    var gradientS=ctx.createLinearGradient(0,0,0,170);
+    gradientS.addColorStop(0,"white");
+    gradientS.addColorStop(0.5,fills);
+    gradientS.addColorStop(1,"white");
+    this.fillSelected=gradientS || "#AAAAAA";
+    var gradientN=ctx.createLinearGradient(0,0,0,170);
+    gradientN.addColorStop(0,"white");
+    gradientN.addColorStop(0.5,filln);
+    gradientN.addColorStop(1,"white");
+    this.fillNotSelected=gradientN || "#AAAAAA";   
+  }else{
+    this.fill = fill || '#AAAAAA';
+    this.fillSelected= fills || "#BBBBBB";
+    this.fillNotSelected= filln || "#CCCCCC";
+  }
   this.name=name;
   this.tech=tech;
 }
@@ -229,6 +263,7 @@ function drawYAxes(ctx){
 }
 
 function scaleXCP(xpos){
+  console.log(xpos);
   xpos=Math.log2(xpos)*31+25;
   return(xpos);
 }
