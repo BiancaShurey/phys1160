@@ -23,11 +23,11 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
     gradientN.addColorStop(1,"white");
     this.fillNotSelected=gradientN || "#AAAAAA";
   } else if ((freqmax-freqmin)<=5){
-    var gradient=ctx.createLinearGradient(0,0,0,170);
-    gradient.addColorStop(0,"white");
-    gradient.addColorStop("0.5",fill);
-    gradient.addColorStop(1,"white");
-    this.fill=gradient || "#AAAAAA";
+    var grd=ctx.createLinearGradient(0,0,0,170);
+    grd.addColorStop(0,"white");
+    grd.addColorStop("0.5",fill);
+    grd.addColorStop(1,"white");
+    this.fill=grd || "#AAAAAA";
     var gradientS=ctx.createLinearGradient(0,0,0,170);
     gradientS.addColorStop(0,"white");
     gradientS.addColorStop("0.5",fills);
