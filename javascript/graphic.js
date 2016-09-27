@@ -24,9 +24,9 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
     this.fillNotSelected=gradientN || "#AAAAAA";
   } else if ((freqmax-freqmin)<=5){
     var grd=ctx.createLinearGradient(0,0,0,170);
-    grd.addColorStop(0,"white");
-    grd.addColorStop("0.5",fill);
-    grd.addColorStop(1,"white");
+    grd.addColorStop(0, "white");
+    grd.addColorStop("0.5", fill);
+    grd.addColorStop(1, "white");
     this.fill=grd || "#AAAAAA";
     var gradientS=ctx.createLinearGradient(0,0,0,170);
     gradientS.addColorStop(0,"white");
