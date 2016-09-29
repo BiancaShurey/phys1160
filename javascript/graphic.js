@@ -117,10 +117,8 @@ Technique.prototype.drawS = function(ctx) {
 }
 
 Technique.prototype.contains = function(mx, my) {
-  mx=scaleXPC(mx);
-  my=scaleYPC(my);
-  return  ((this.durmin <= mx) && (mx <= this.durmax ) &&
-          (this.freqmin <= my) && (my <= this.freqmax));
+  return  (((scaleXCP(this.durmin)-5) <= mx) && (mx <= (scaleXCP(this.durmax)+5) ) &&
+          ((scaleYCP(this.freqmin)+5) >= my) && (my >= (scaleYCP(this.freqmax)-5)));
 }
 
 
@@ -183,10 +181,12 @@ function CanvasState(canvas) {
     var techniques = myState.techniques;
     var l = techniques.length;
     for (var i = l-1; i >= 0; i--) {
+      console.log(techniques[i].contains(mx, my));
       if (techniques[i].contains(mx, my)) {
         var mySel = techniques[i];
         document.getElementById("Technique").innerHTML=mySel.tech;
         myState.selection = mySel;
+        console.log(mySel);
         myState.valid = false;
         document.getElementById("rangedur").innerHTML="Duration (&#181s): "+mySel.durmin+"<="+Math.round(scaleXPC(mx))+"<="+mySel.durmax;
         document.getElementById("rangefreq").innerHTML="Frequency (Hz): "+mySel.freqmin+"<="+Math.round(scaleYPC(my))+"<="+mySel.freqmax;
@@ -220,9 +220,9 @@ CanvasState.prototype.getMouse = function(e) {
   // Add padding and border style widths to offset
   offsetX += this.stylePaddingLeft + this.styleBorderLeft;
   offsetY += this.stylePaddingTop + this.styleBorderTop;
-  mx = e.clientX - offsetX+15;
-  my = e.clientY - offsetY;
-  //ct.fillRect(mx-2.5,my-2.5,5,5,"red");
+  mx = e.clientX - offsetX-10;
+  my = e.clientY - offsetY-10;
+  ct.fillRect(mx-2.5,my-2.5,5,5,"red");
   // We return a simple javascript object (a hash) with x and y defined
   return {x: mx, y: my};
 }
