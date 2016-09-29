@@ -41,10 +41,6 @@ Technique.prototype.drawS = function(ctx) {
 }
 
 Technique.prototype.contains = function(mx, my) {
-  console.log("durmin "+((scaleXCP(this.durmin)-5) <= mx));
-  console.log("durmax "+((scaleXCP(this.durmax)+5)>= mx));
-  console.log("freqmin "+((scaleYCP(this.freqmin)+5)<=my));
-  console.log("freqmax "+((scaleYCP(this.freqmax)-5)>=my));
   return  (((scaleXCP(this.durmin)-5) <= mx) && (mx <= (scaleXCP(this.durmax)+5) ) &&
           ((scaleYCP(this.freqmin)+5) <= my) && (my <= (scaleYCP(this.freqmax)-5)));
 }
