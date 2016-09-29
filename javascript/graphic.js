@@ -6,29 +6,34 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
   this.freqmax = freqmax || freqmin;
   this.durmin = durmin || 0;
   this.durmax = durmax || durmin;
-/*  if ((durmax-durmin)<=5){
-    var grd=ctx.createLinearGradient(0,0,170,0);
+  if ((durmax-durmin)<=5){
+    this.smallx=true;
+    var grd=ctx.createLinearGradient(0,0,(scaleXCP(this.durmax)+10-
+    scaleXCP(this.durmin)+10),0);
     grd.addColorStop(0, "white");
     grd.addColorStop("0.5", fill);
     grd.addColorStop(1, "white");
     this.fill=grd || "#AAAAAA";
-    var gradientS=ctx.createLinearGradient(0,0,170,0);
+    var gradientS=ctx.createLinearGradient(0,0,(scaleXCP(this.durmax)+10-
+    scaleXCP(this.durmin)+10),0);
     gradientS.addColorStop(0,"white");
     gradientS.addColorStop("0.5",fills);
     gradientS.addColorStop(1,"white");
     this.fillSelected=gradientS || "#AAAAAA";
-    var gradientN=ctx.createLinearGradient(0,0,170,0);
+    var gradientN=ctx.createLinearGradient(0,0,(scaleXCP(this.durmax)+10-
+    scaleXCP(this.durmin)+10),0);
     gradientN.addColorStop(0,"white");
     gradientN.addColorStop("0.5",filln);
     gradientN.addColorStop(1,"white");
     this.fillNotSelected=gradientN || "#AAAAAA";
   } else if ((freqmax-freqmin)<=5){
-    var grd=ctx.createLinearGradient(0,0,0,170);
+    this.smally=true;
+    var grd=ctx.createLinearGradient(0,0,0,(scaleYCP(this.freqmax)+10-scaleYCP(this.freqmin)+10));
     grd.addColorStop(0, "white");
     grd.addColorStop("0.5", fill);
     grd.addColorStop(1, "white");
     this.fill=grd || "#AAAAAA";
-    var gradientS=ctx.createLinearGradient(0,0,0,170);
+    var gradientS=ctx.createLinearGradient(0,0,0,(scaleYCP(this.freqmax)+10-scaleYCP(this.freqmin)+10));
     gradientS.addColorStop(0,"white");
     gradientS.addColorStop("0.5",fills);
     gradientS.addColorStop(1,"white");
@@ -37,42 +42,78 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
     gradientN.addColorStop(0,"white");
     gradientN.addColorStop("0.5",filln);
     gradientN.addColorStop(1,"white");
-    this.fillNotSelected=gradientN || "#AAAAAA";   
+    this.fillNotSelected=gradientN || "#AAAAAA";
   }else{
-  */
     this.fill = fill || '#AAAAAA';
     this.fillSelected= fills || "#BBBBBB";
     this.fillNotSelected= filln || "#CCCCCC";
-//  }
+  }
+  this.fills=fills;
   this.name=name;
   this.tech=tech;
 }
 
 Technique.prototype.draw = function(ctx) {
   ctx.fillStyle=this.fill;
-  ctx.strokeStyle=this.fillSelected;
-  ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
-  ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  ctx.strokeStyle=this.fills;
+  if (this.smallx){
+    ctx.strokeRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  } else if (this.smally){
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+  } else {
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  }
 }
 
 Technique.prototype.drawN = function(ctx) {
   ctx.fillStyle=this.fillNotSelected;
-  ctx.strokeStyle=this.fillSelected;
-  ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
-  ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  ctx.strokeStyle=this.fills;
+  if (this.smallx){
+    ctx.strokeRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  } else if (this.smally){
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+  } else {
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  }
 }
 
 Technique.prototype.drawS = function(ctx) {
   ctx.fillStyle=this.fillSelected;
-  ctx.strokeStyle=this.fillSelected;
-  ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
-  ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  ctx.strokeStyle=this.fills;
+  if (this.smallx){
+    ctx.strokeRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)+10),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  } else if (this.smally){
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)+10));
+  } else {
+    ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+    ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+    scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  }
 }
 
 Technique.prototype.contains = function(mx, my) {
@@ -105,10 +146,10 @@ function CanvasState(canvas) {
 
   // **** Keep track of state! ****
   var faradic = new Technique(30,100,100, 1000,"rgba(141,70,120,0.5)","rgb(65,32,55)","rgba(218,107,184,0.5)","faradic", "Faradic",ctx);
-  var tens = new Technique(2,200,10,400,"rgba(90,54,201,0.5)","rgb(33,20,73)", "rgba(142,119,210,0.5)","TENS","TENS".ctx);
+  var tens = new Technique(2,200,10,400,"rgba(90,54,201,0.5)","rgb(33,20,73)", "rgba(142,119,210,0.5)","TENS","TENS",ctx);
   var HVGS = new Technique(2,100,100,200,"rgba(83,94,55,0.5)","rgb(55,69,20)","rgba(128,145,85,0.5)","HVGS","HVGS",ctx);
   var hrtens = new Technique(80,120,50,50,"rgba(141,43,171,0.5)","rgb(99,30,120)","rgba(221,136,247,0.5)","TENS","HR TENS",ctx);
-  var lrtens = new Technique(2,5,300,999999,"rgba(81,138,97)","rgb(36,61,43)","rgba(125,214,150,0.5)","TENS","LR TENS",ctx);
+  var lrtens = new Technique(2,5,300,999999,"rgba(81,138,97,0.5)","rgb(36,61,43)","rgba(125,214,150,0.5)","TENS","LR TENS",ctx);
   var bitens = new Technique(125,250,200,250,"rgba(80,73,174,0.5)","rgb(57,52,123)","rgba(115,105,250,0.5)","TENS","BI TENS",ctx);
   var russian = new Technique(2500,2500,100,200,"rgba(146,74,25,0.5)","rgb(95,48,16)","rgba(164,113,38,0.5)","Russian","Russian",ctx);
   var interferential = new Technique(4000,4250,10,400,"rgba(69,28,106,0.5)","rgb(36,15,55)","rgba(145,103,182,0.5)","interferential","interferential",ctx);
@@ -265,7 +306,6 @@ function drawYAxes(ctx){
 }
 
 function scaleXCP(xpos){
-  console.log(xpos);
   xpos=Math.log2(xpos)*31+25;
   return(xpos);
 }
