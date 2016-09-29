@@ -1,14 +1,49 @@
 // uses some code from https://github.com/simonsarris/Canvas-tutorials/blob/master/shapes.js
 
 // Constructor for Techniques objects to hold data.
-function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,tech) {
+function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,tech,ctx) {
   this.freqmin = freqmin || 0;
   this.freqmax = freqmax || freqmin;
   this.durmin = durmin || 0;
   this.durmax = durmax || durmin;
-  this.fill = fill || '#AAAAAA';
-  this.fillSelected= fills || "#BBBBBB";
-  this.fillNotSelected= filln || "#CCCCCC";
+/*  if ((durmax-durmin)<=5){
+    var grd=ctx.createLinearGradient(0,0,170,0);
+    grd.addColorStop(0, "white");
+    grd.addColorStop("0.5", fill);
+    grd.addColorStop(1, "white");
+    this.fill=grd || "#AAAAAA";
+    var gradientS=ctx.createLinearGradient(0,0,170,0);
+    gradientS.addColorStop(0,"white");
+    gradientS.addColorStop("0.5",fills);
+    gradientS.addColorStop(1,"white");
+    this.fillSelected=gradientS || "#AAAAAA";
+    var gradientN=ctx.createLinearGradient(0,0,170,0);
+    gradientN.addColorStop(0,"white");
+    gradientN.addColorStop("0.5",filln);
+    gradientN.addColorStop(1,"white");
+    this.fillNotSelected=gradientN || "#AAAAAA";
+  } else if ((freqmax-freqmin)<=5){
+    var grd=ctx.createLinearGradient(0,0,0,170);
+    grd.addColorStop(0, "white");
+    grd.addColorStop("0.5", fill);
+    grd.addColorStop(1, "white");
+    this.fill=grd || "#AAAAAA";
+    var gradientS=ctx.createLinearGradient(0,0,0,170);
+    gradientS.addColorStop(0,"white");
+    gradientS.addColorStop("0.5",fills);
+    gradientS.addColorStop(1,"white");
+    this.fillSelected=gradientS || "#AAAAAA";
+    var gradientN=ctx.createLinearGradient(0,0,0,170);
+    gradientN.addColorStop(0,"white");
+    gradientN.addColorStop("0.5",filln);
+    gradientN.addColorStop(1,"white");
+    this.fillNotSelected=gradientN || "#AAAAAA";   
+  }else{
+  */
+    this.fill = fill || '#AAAAAA';
+    this.fillSelected= fills || "#BBBBBB";
+    this.fillNotSelected= filln || "#CCCCCC";
+//  }
   this.name=name;
   this.tech=tech;
 }
@@ -55,6 +90,7 @@ function CanvasState(canvas) {
   canvas.style.width = this.width*2;
   canvas.style.height = this.height*2;
   this.ctx = canvas.getContext('2d');
+  ctx=this.ctx;
   // fixes mouse co-ordinate problems
   // when there's a border or padding. See getMouse for more detail
   var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
@@ -66,22 +102,22 @@ function CanvasState(canvas) {
   }
 
   // **** Keep track of state! ****
-  var faradic = new Technique(30,100,100, 1000,"rgba(141,70,120,0.5)","rgb(65,32,55)","rgba(218,107,184,0.5)","faradic", "Faradic");
-  var tens = new Technique(2,200,10,400,"rgba(90,54,201,0.5)","rgb(33,20,73)", "rgba(142,119,210,0.5)","TENS","TENS");
-  var HVGS = new Technique(2,100,100,200,"rgba(83,94,55,0.5)","rgb(55,69,20)","rgba(128,145,85,0.5)","HVGS","HVGS");
-  var hrtens = new Technique(80,120,50,50,"rgba(141,43,171,0.5)","rgb(99,30,120)","rgba(221,136,247,0.5)","TENS","HR TENS");
-  var lrtens = new Technique(2,5,300,999999,"rgba(81,138,97)","rgb(36,61,43)","rgba(125,214,150,0.5)","TENS","LR TENS");
-  var bitens = new Technique(125,250,200,250,"rgba(80,73,174,0.5)","rgb(57,52,123)","rgba(115,105,250,0.5)","TENS","BI TENS");
-  var russian = new Technique(2500,2500,100,200,"rgba(146,74,25,0.5)","rgb(95,48,16)","rgba(164,113,38,0.5)","Russian","Russian");
-  var interferential = new Technique(4000,4250,10,400,"rgba(69,28,106,0.5)","rgb(36,15,55)","rgba(145,103,182,0.5)","interferential","interferential");
-  var FESinnervated = new Technique(30,50,100,100,"rgba(170,40,46,0.5)","rgb(119,28,32)","rgba(184,99,103,0.5)","FES", "FES innervated");
-  var FESdenervated = new Technique(0.5,1,100000,500000,"rgba(81,76,135,0.5)","rgb(50,47,84)","rgba(127,119,211,0.5)","FES", "FES denervated");
+  var faradic = new Technique(30,100,100, 1000,"rgba(141,70,120,0.5)","rgb(65,32,55)","rgba(218,107,184,0.5)","faradic", "Faradic",ctx);
+  var tens = new Technique(2,200,10,400,"rgba(90,54,201,0.5)","rgb(33,20,73)", "rgba(142,119,210,0.5)","TENS","TENS".ctx);
+  var HVGS = new Technique(2,100,100,200,"rgba(83,94,55,0.5)","rgb(55,69,20)","rgba(128,145,85,0.5)","HVGS","HVGS",ctx);
+  var hrtens = new Technique(80,120,50,50,"rgba(141,43,171,0.5)","rgb(99,30,120)","rgba(221,136,247,0.5)","TENS","HR TENS",ctx);
+  var lrtens = new Technique(2,5,300,999999,"rgba(81,138,97)","rgb(36,61,43)","rgba(125,214,150,0.5)","TENS","LR TENS",ctx);
+  var bitens = new Technique(125,250,200,250,"rgba(80,73,174,0.5)","rgb(57,52,123)","rgba(115,105,250,0.5)","TENS","BI TENS",ctx);
+  var russian = new Technique(2500,2500,100,200,"rgba(146,74,25,0.5)","rgb(95,48,16)","rgba(164,113,38,0.5)","Russian","Russian",ctx);
+  var interferential = new Technique(4000,4250,10,400,"rgba(69,28,106,0.5)","rgb(36,15,55)","rgba(145,103,182,0.5)","interferential","interferential",ctx);
+  var FESinnervated = new Technique(30,50,100,100,"rgba(170,40,46,0.5)","rgb(119,28,32)","rgba(184,99,103,0.5)","FES", "FES innervated",ctx);
+  var FESdenervated = new Technique(0.5,1,100000,500000,"rgba(81,76,135,0.5)","rgb(50,47,84)","rgba(127,119,211,0.5)","FES", "FES denervated",ctx);
   // var ESmusclestrength = new Technique(35,50,100,300,"rgba(111,63,44,0.5)","rgb(60,34,24)","rgba(135,106,94,0.5)","other","Electrical Stimulation for Muscle Strength");
   // var motornerve = new Technique(30,50,10,200,"rgba(159,44,122,0.5)","rgb(108,30,83)","rgba(175,101,151,0.5)","other", "Motor Nerve");
   // var nocireceptors = new Technique(0,25,100,999999,"rgba(83,78,29,0.5)","rgb(58,56,36)","rgba(134,130,83,0.5)","other", "Nocireceptors");
   // var muscletissue = new Technique(1,2,300000,500000,"rgba(134,56,82,0.5)","rgb(83,35,51)","rgba(154,111,125,0.5)","other","Muscle Tissue");
-  var sensenerve = new Technique(100,100,10,200,"rgba(64,83,105,0.5)","rgb(33,43,54)","rgba(56,114,181,0.5)","sensenerve", "Sense Nerve");
-  var galvanic = new Technique(scaleYPC(255),4250,500000,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic");
+  var sensenerve = new Technique(100,100,10,200,"rgba(64,83,105,0.5)","rgb(33,43,54)","rgba(56,114,181,0.5)","sensenerve", "Sense Nerve",ctx);
+  var galvanic = new Technique(scaleYPC(255),4250,500000,999999,"rgba(134,134,134,0.5)","rgb(83,83,83)","rgba(210,210,210,0.5)","Galvanic", "Galvanic",ctx);
 
   this.valid = false; // when set to false, the canvas will redraw everything
   this.techniques = [hrtens,bitens,russian,FESinnervated,sensenerve,
@@ -229,6 +265,7 @@ function drawYAxes(ctx){
 }
 
 function scaleXCP(xpos){
+  console.log(xpos);
   xpos=Math.log2(xpos)*31+25;
   return(xpos);
 }
