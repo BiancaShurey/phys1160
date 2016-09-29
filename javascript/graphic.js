@@ -6,44 +6,9 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
   this.freqmax = freqmax || freqmin;
   this.durmin = durmin || 0;
   this.durmax = durmax || durmin;
-/*  if ((durmax-durmin)<=5){
-    var grd=ctx.createLinearGradient(0,0,170,0);
-    grd.addColorStop(0, "white");
-    grd.addColorStop("0.5", fill);
-    grd.addColorStop(1, "white");
-    this.fill=grd || "#AAAAAA";
-    var gradientS=ctx.createLinearGradient(0,0,170,0);
-    gradientS.addColorStop(0,"white");
-    gradientS.addColorStop("0.5",fills);
-    gradientS.addColorStop(1,"white");
-    this.fillSelected=gradientS || "#AAAAAA";
-    var gradientN=ctx.createLinearGradient(0,0,170,0);
-    gradientN.addColorStop(0,"white");
-    gradientN.addColorStop("0.5",filln);
-    gradientN.addColorStop(1,"white");
-    this.fillNotSelected=gradientN || "#AAAAAA";
-  } else if ((freqmax-freqmin)<=5){
-    var grd=ctx.createLinearGradient(0,0,0,170);
-    grd.addColorStop(0, "white");
-    grd.addColorStop("0.5", fill);
-    grd.addColorStop(1, "white");
-    this.fill=grd || "#AAAAAA";
-    var gradientS=ctx.createLinearGradient(0,0,0,170);
-    gradientS.addColorStop(0,"white");
-    gradientS.addColorStop("0.5",fills);
-    gradientS.addColorStop(1,"white");
-    this.fillSelected=gradientS || "#AAAAAA";
-    var gradientN=ctx.createLinearGradient(0,0,0,170);
-    gradientN.addColorStop(0,"white");
-    gradientN.addColorStop("0.5",filln);
-    gradientN.addColorStop(1,"white");
-    this.fillNotSelected=gradientN || "#AAAAAA";   
-  }else{
-  */
-    this.fill = fill || '#AAAAAA';
-    this.fillSelected= fills || "#BBBBBB";
-    this.fillNotSelected= filln || "#CCCCCC";
-//  }
+  this.fill = fill || '#AAAAAA';
+  this.fillSelected= fills || "#BBBBBB";
+  this.fillNotSelected= filln || "#CCCCCC";
   this.name=name;
   this.tech=tech;
 }
