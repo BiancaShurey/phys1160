@@ -16,8 +16,8 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
 Technique.prototype.draw = function(ctx) {
   ctx.fillStyle=this.fill;
   ctx.strokeStyle=this.fillSelected;
-  ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
-  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
+  ctx.strokeRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)+5-
+  scaleXCP(this.durmin)+5),(scaleYCP(this.freqmax)-5-scaleYCP(this.freqmin)-5));
   ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
   scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
 }
@@ -41,10 +41,12 @@ Technique.prototype.drawS = function(ctx) {
 }
 
 Technique.prototype.contains = function(mx, my) {
-  mx=scaleXPC(mx);
-  my=scaleYPC(my);
-  return  ((this.durmin <= mx) && (mx <= this.durmax ) &&
-          (this.freqmin <= my) && (my <= this.freqmax));
+  console.log("durmin "+((scaleXCP(this.durmin)-5) <= mx));
+  console.log("durmax "+((scaleXCP(this.durmax)+5)>= mx));
+  console.log("freqmin "+((scaleYCP(this.freqmin)+5)<=my));
+  console.log("freqmax "+((scaleYCP(this.freqmax)-5)>=my));
+  return  (((scaleXCP(this.durmin)-5) <= mx) && (mx <= (scaleXCP(this.durmax)+5) ) &&
+          ((scaleYCP(this.freqmin)+5) <= my) && (my <= (scaleYCP(this.freqmax)-5)));
 }
 
 
@@ -106,10 +108,12 @@ function CanvasState(canvas) {
     var techniques = myState.techniques;
     var l = techniques.length;
     for (var i = l-1; i >= 0; i--) {
+      console.log(techniques[i].contains(mx, my));
       if (techniques[i].contains(mx, my)) {
         var mySel = techniques[i];
         document.getElementById("Technique").innerHTML=mySel.tech;
         myState.selection = mySel;
+        console.log(mySel);
         myState.valid = false;
         document.getElementById("rangedur").innerHTML="Duration (&#181s): "+mySel.durmin+"<="+Math.round(scaleXPC(mx))+"<="+mySel.durmax;
         document.getElementById("rangefreq").innerHTML="Frequency (Hz): "+mySel.freqmin+"<="+Math.round(scaleYPC(my))+"<="+mySel.freqmax;
@@ -143,9 +147,9 @@ CanvasState.prototype.getMouse = function(e) {
   // Add padding and border style widths to offset
   offsetX += this.stylePaddingLeft + this.styleBorderLeft;
   offsetY += this.stylePaddingTop + this.styleBorderTop;
-  mx = e.clientX - offsetX+15;
-  my = e.clientY - offsetY;
-  //ct.fillRect(mx-2.5,my-2.5,5,5,"red");
+  mx = e.clientX - offsetX-10;
+  my = e.clientY - offsetY-10;
+  ct.fillRect(mx-2.5,my-2.5,5,5,"red");
   // We return a simple javascript object (a hash) with x and y defined
   return {x: mx, y: my};
 }
