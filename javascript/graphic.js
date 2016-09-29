@@ -16,8 +16,8 @@ function Technique(freqmin, freqmax, durmin, durmax, fill, fills, filln, name,te
 Technique.prototype.draw = function(ctx) {
   ctx.fillStyle=this.fill;
   ctx.strokeStyle=this.fillSelected;
-  ctx.strokeRect(scaleXCP(this.durmin)-5,scaleYCP(this.freqmin)+5,(scaleXCP(this.durmax)+5-
-  scaleXCP(this.durmin)+5),(scaleYCP(this.freqmax)-5-scaleYCP(this.freqmin)-5));
+  ctx.strokeRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
+  scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
   ctx.fillRect(scaleXCP(this.durmin),scaleYCP(this.freqmin),(scaleXCP(this.durmax)-
   scaleXCP(this.durmin)),(scaleYCP(this.freqmax)-scaleYCP(this.freqmin)));
 }
@@ -42,7 +42,7 @@ Technique.prototype.drawS = function(ctx) {
 
 Technique.prototype.contains = function(mx, my) {
   return  (((scaleXCP(this.durmin)-5) <= mx) && (mx <= (scaleXCP(this.durmax)+5) ) &&
-          ((scaleYCP(this.freqmin)+5) <= my) && (my <= (scaleYCP(this.freqmax)-5)));
+          ((scaleYCP(this.freqmin)+5) >= my) && (my >= (scaleYCP(this.freqmax)-5)));
 }
 
 
